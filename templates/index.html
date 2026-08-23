@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Intelligent Emergency Response Platform
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            🚨 IERP
+        </div>
+
+        <div>
+            <h1>
+                Intelligent Emergency Response Platform
+            </h1>
+
+            <p>
+                Smart Emergency Detection • Fast Response • Better Coordination
+            </p>
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section class="dashboard">
+
+        <div class="stat-card">
+
+            <span>🚨</span>
+
+            <h2 id="totalEmergencies">
+                0
+            </h2>
+
+            <p>Total Emergencies</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>⏳</span>
+
+            <h2 id="pendingEmergencies">
+                0
+            </h2>
+
+            <p>Pending</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>🚑</span>
+
+            <h2 id="dispatchedEmergencies">
+                0
+            </h2>
+
+            <p>Dispatched</p>
+
+        </div>
+
+
+        <div class="stat-card critical-card">
+
+            <span>⚠️</span>
+
+            <h2 id="criticalEmergencies">
+                0
+            </h2>
+
+            <p>Critical Cases</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN CONTAINER -->
+
+    <main class="container">
+
+
+        <!-- EMERGENCY FORM -->
+
+        <section class="form-section">
+
+            <div class="section-title">
+
+                <h2>
+                    🚨 Report Emergency
+                </h2>
+
+                <p>
+                    Submit emergency information for rapid response.
+                </p>
+
+            </div>
+
+
+            <form id="emergencyForm">
+
+
+                <div class="input-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter phone number"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Emergency Type
+                    </label>
+
+                    <select
+                        id="emergency_type"
+                        required>
+
+                        <option value="">
+                            Select emergency type
+                        </option>
+
+                        <option value="Medical">
+                            🏥 Medical Emergency
+                        </option>
+
+                        <option value="Fire">
+                            🔥 Fire
+                        </option>
+
+                        <option value="Accident">
+                            🚗 Road Accident
+                        </option>
+
+                        <option value="Crime">
+                            👮 Crime
+                        </option>
+
+                        <option value="Natural Disaster">
+                            🌪 Natural Disaster
+                        </option>
+
+                        <option value="Other">
+                            ⚠️ Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Emergency Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Example: Bus Stand, Karur"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Emergency Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        rows="5"
+                        placeholder="Describe the emergency..."></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="emergency-button">
+
+                    🚨 SEND EMERGENCY ALERT
+
+                </button>
+
+            </form>
+
+
+            <div
+                id="responseMessage"
+                class="response-message">
+            </div>
+
+        </section>
+
+
+        <!-- RESPONSE INFORMATION -->
+
+        <section class="response-section">
+
+            <div class="section-title">
+
+                <h2>
+                    🤖 Intelligent Response
+                </h2>
+
+                <p>
+                    Automated emergency prioritization.
+                </p>
+
+            </div>
+
+
+            <div class="response-box">
+
+                <div class="response-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    AI-Assisted Priority Detection
+                </h3>
+
+                <p>
+                    The system analyzes the emergency
+                    type and description to determine
+                    the response priority.
+                </p>
+
+            </div>
+
+
+            <div class="priority-info">
+
+                <div class="priority critical">
+                    <strong>CRITICAL</strong>
+                    <span>Immediate response</span>
+                </div>
+
+                <div class="priority high">
+                    <strong>HIGH</strong>
+                    <span>Rapid response</span>
+                </div>
+
+                <div class="priority medium">
+                    <strong>MEDIUM</strong>
+                    <span>Normal response</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- EMERGENCY TABLE -->
+
+    <section class="table-section">
+
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+                    📊 Emergency Response Dashboard
+                </h2>
+
+                <p>
+                    Live emergency response records
+                </p>
+
+            </div>
+
+            <button
+                onclick="loadEmergencies()"
+                class="refresh-button">
+
+                🔄 Refresh
+
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Type</th>
+
+                        <th>Location</th>
+
+                        <th>Priority</th>
+
+                        <th>Status</th>
+
+                        <th>Time</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="emergencyTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <p>
+            © 2026 Intelligent Emergency Response Platform
+        </p>
+
+        <p>
+            SIH Hackathon Project
+        </p>
+
+    </footer>
+
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}">
+    </script>
+
+</body>
+
+</html>
